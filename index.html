@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemon Diary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="container mx-auto p-4 text-center">
+      <header class="flex justify-between p-4">
+        <div class="logo">Pokemon Diary</div>
+        <input type="search" class="input-search border" />
+        <nav>
+          <ul class="flex justify-between gap-4">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Journal</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <div
+        id="pokemon-container"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
+      >
+        <!-- Pokemon cards will be populated here -->
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

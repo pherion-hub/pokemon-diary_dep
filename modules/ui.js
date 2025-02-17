@@ -9,6 +9,8 @@ const searchInput = document.getElementById("default-search");
 const searchForm = document.getElementById("search-form");
 
 export function renderPokemons(list) {
+  console.log(list);
+
   pokemonContainer.innerHTML = ""; // Clear a container before render
 
   list.forEach((pokemon) => {
@@ -32,17 +34,20 @@ export function renderPokemons(list) {
   });
 }
 
-// Search by name
+// Search by name or type
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const searchValue = searchInput.value.toLowerCase(); // To lower case
+  const searchValue = searchInput.value.toLowerCase(); // To lower Case
 
-  const foundPokemon = pokemonList.find(
-    (p) => p.name.toLowerCase() === searchValue
+  const foundPokemons = pokemonList.filter(
+    (p) =>
+      p.name.toLowerCase().includes(searchValue) ||
+      p.type.some((t) => t.includes(searchValue))
   );
 
-  if (foundPokemon) {
-    renderPokemons([foundPokemon]); // Render one pokemon
+  if (foundPokemons.length > 0) {
+    console.log(foundPokemons);
+    renderPokemons(foundPokemons); // Render foundPokemons
   } else {
     pokemonContainer.innerHTML =
       "<p class='text-red-500'>Pokémon not found!</p>";

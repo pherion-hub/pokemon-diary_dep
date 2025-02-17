@@ -21,14 +21,32 @@ export function renderPokemons(list) {
       "flex-col",
       "items-center",
       "p-4",
-      "shadow"
+      "shadow",
+      "relative"
     );
     pokemonCard.innerHTML = `
-      <img src="${pokemon.image}" alt="${pokemon.name}">
-      <p>Name: <span>${pokemon.name}</span></p>
+    <h3 class = "text-2xl font-weight: 700 mb-4">${pokemon.name}</h3>
+    <img id = "fave-icon" class = "absolute right-[16px] top-[21px] h-[25px]" src="Icons/299063_heart_icon 2.svg" alt="heart">
+      <img class = "h-[50px] mb-4" src="${pokemon.image}" alt="${pokemon.name}">
       <span>Type: ${pokemon.type.join(", ")}</span>
     `;
     pokemonContainer.appendChild(pokemonCard);
+
+    // Function Heart Journal red
+    const faveIcons = document.querySelectorAll("#fave-icon");
+    // console.log(faveIcon);
+
+    let isFavourit = false;
+
+    faveIcons.forEach((icon) => {
+      icon.addEventListener("click", (event) => {
+        console.log(event.target);
+        isFavourit = !isFavourit;
+        isFavourit
+          ? (event.target.src = "Icons/299063_heart_icon.svg")
+          : (event.target.src = "Icons/299063_heart_icon 2.svg");
+      });
+    });
   });
 }
 

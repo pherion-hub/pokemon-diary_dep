@@ -8,9 +8,11 @@ const pokemonContainer = document.querySelector("#pokemon-container");
 const searchInput = document.getElementById("default-search");
 const searchForm = document.getElementById("search-form");
 
-export function renderPokemons(pokemonList) {
-  pokemonList.forEach((pokemon) => {
-    // new card for each pokemon
+export function renderPokemons(list) {
+  pokemonContainer.innerHTML = ""; // Clear a container before render
+
+  list.forEach((pokemon) => {
+    // Create a card
     const pokemonCard = document.createElement("div");
     pokemonCard.classList.add(
       "rounded",
@@ -22,37 +24,27 @@ export function renderPokemons(pokemonList) {
       "shadow"
     );
     pokemonCard.innerHTML = `
-          <img src="${pokemon.image}" alt="${pokemon.name}">
-                <p>Name: <span>${pokemon.name}</span></p>
-                <span>Type: ${pokemon.type}</span>
-          `;
+      <img src="${pokemon.image}" alt="${pokemon.name}">
+      <p>Name: <span>${pokemon.name}</span></p>
+      <span>Type: ${pokemon.type.join(", ")}</span>
+    `;
     pokemonContainer.appendChild(pokemonCard);
   });
 }
 
-export function renderOnePokemon(pokemon) {
-  const pokemonCard = document.createElement("div");
-  pokemonCard.classList.add(
-    "rounded",
-    "border",
-    "flex",
-    "flex-col",
-    "items-center",
-    "p-4",
-    "shadow"
-  );
-  pokemonCard.innerHTML = `
-        <img src="${pokemon.image}" alt="${pokemon.name}">
-              <p>Name: <span>${pokemon.name}</span></p>
-              <span>Type: ${pokemon.type}</span>
-        `;
-
-  pokemonContainer.innerHTML = "";
-  pokemonContainer.appendChild(pokemonCard);
-}
-
+// Search by name
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const target = pokemonList.find((p) => p.name == searchInput.value);
-  renderOnePokemon(target);
+  const searchValue = searchInput.value.toLowerCase(); // To lower case
+
+  const foundPokemon = pokemonList.find(
+    (p) => p.name.toLowerCase() === searchValue
+  );
+
+  if (foundPokemon) {
+    renderPokemons([foundPokemon]); // Render one pokemon
+  } else {
+    pokemonContainer.innerHTML =
+      "<p class='text-red-500'>Pokémon not found!</p>";
+  }
 });

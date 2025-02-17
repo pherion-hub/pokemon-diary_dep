@@ -34,8 +34,6 @@ export function renderPokemons(list) {
     `;
     pokemonContainer.appendChild(pokemonCard);
   });
-
-  setupEventListeners();
 }
 
 // Function to add event listeners

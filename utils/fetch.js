@@ -15,6 +15,7 @@ export async function fetchPokemon() {
         name: details.name,
         image: details.sprites.other.showdown.front_shiny,
         type: details.types.map((t) => t.type.name),
+        id: details.id,
       });
     });
 

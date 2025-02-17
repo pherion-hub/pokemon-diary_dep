@@ -9,8 +9,6 @@ const searchInput = document.getElementById("default-search");
 const searchForm = document.getElementById("search-form");
 
 export function renderPokemons(list) {
-  console.log(list);
-
   pokemonContainer.innerHTML = ""; // Clear a container before render
 
   list.forEach((pokemon) => {
@@ -46,7 +44,6 @@ searchForm.addEventListener("submit", (e) => {
   );
 
   if (foundPokemons.length > 0) {
-    console.log(foundPokemons);
     renderPokemons(foundPokemons); // Render foundPokemons
   } else {
     pokemonContainer.innerHTML =

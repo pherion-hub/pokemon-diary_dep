@@ -29,7 +29,7 @@ export function renderPokemons(list) {
       <h3 class="text-2xl font-bold mb-4">${pokemon.name}</h3>
       <img data-id="${
         pokemon.id
-      }" class="absolute right-[16px] top-[21px] h-[25px] cursor-pointer heart-icon" src="Icons/299063_heart_icon 2.svg"
+      }" class="absolute right-[16px] top-[21px] h-[25px] cursor-pointer heart-icon" src="Icons/299063_heart_icon-white.svg"
     alt="heart">
       <img class="h-[50px] mb-4" src="${pokemon.image}" alt="${pokemon.name}">
       <span>Type: ${pokemon.type.join(", ")}</span>
@@ -89,8 +89,8 @@ export function setupEventListeners(pokemonList) {
 
 // Function to toggle favorite (heart) icon
 function toggleFavorite(icon) {
-  const isFavorite = icon.src.includes("299063_heart_icon.svg");
+  const isFavorite = icon.src.includes("299063_heart_icon-red.svg");
   icon.src = isFavorite
-    ? "Icons/299063_heart_icon 2.svg"
-    : "Icons/299063_heart_icon.svg";
+    ? "Icons/299063_heart_icon-white.svg"
+    : "Icons/299063_heart_icon-red.svg";
 }

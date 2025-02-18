@@ -2,7 +2,7 @@
 
 const pokemonList = [];
 
-export async function fetchPokemon() {
+export async function fetchPokemons() {
   try {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
     const data = await response.json();
@@ -16,6 +16,7 @@ export async function fetchPokemon() {
         image: details.sprites.other.showdown.front_shiny,
         type: details.types.map((t) => t.type.name),
         id: details.id,
+        isFavorite: false,
       });
     });
 

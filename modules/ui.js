@@ -1,6 +1,6 @@
 // Import function to add Pokémon to the cart
 
-import { deleteFromCart, addToCart } from "./storage.js";
+import { getCartItems, deleteFromCart, addToCart } from "./storage.js";
 
 // Select DOM elements
 const pokemonContainer = document.querySelector("#pokemon-container");
@@ -11,8 +11,10 @@ const searchForm = document.getElementById("search-form");
 export function renderPokemons(list) {
   pokemonContainer.innerHTML = ""; // Clear the container before rendering
 
+  // Get all Favorites from Local Storage
+  const cart = getCartItems();
+
   list.forEach((pokemon) => {
-    console.log(pokemon.isFavorite);
     // Create a card for each Pokémon
     const pokemonCard = document.createElement("div");
     pokemonCard.classList.add(
@@ -25,11 +27,20 @@ export function renderPokemons(list) {
       "shadow",
       "relative"
     );
+
+    // Check if pokemon in  Local Storage
+    const isFavorite = cart.some((p) => p.name === pokemon.name);
+
+    // isFavorite ? - icon red, if not - icon white
+    const heartIconSrc = isFavorite
+      ? "Icons/299063_heart_icon-red.svg"
+      : "Icons/299063_heart_icon-white.svg";
+
     pokemonCard.innerHTML = `
       <h3 class="text-2xl font-bold mb-4">${pokemon.name}</h3>
       <img data-id="${
         pokemon.id
-      }" class="absolute right-[16px] top-[21px] h-[25px] cursor-pointer heart-icon" src="Icons/299063_heart_icon-white.svg"
+      }" class="absolute right-[16px] top-[21px] h-[25px] cursor-pointer heart-icon" src="${heartIconSrc}"
     alt="heart">
       <img class="h-[50px] mb-4" src="${pokemon.image}" alt="${pokemon.name}">
       <span>Type: ${pokemon.type.join(", ")}</span>

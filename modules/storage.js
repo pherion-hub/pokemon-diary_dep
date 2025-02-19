@@ -14,15 +14,13 @@ export function addToCart(pokemon) {
 
 export function deleteFromCart(pokemonId) {
   const cart = getCartItems();
-  // const pokemonToDelete = JSON.parse(cart.find((i) => i.id === pokemonId));
 
-  // localStorage.removeItem("cart", JSON.stringify(cart));
-
+  // check if pokemon with id pokemonId is in cart and delete it
   for (let i = 0; i < cart.length; i++) {
     if (cart[i].id == pokemonId) {
       cart.splice(i, 1);
     }
   }
-
+  // update cart in localStorage
   localStorage.setItem("cart", JSON.stringify(cart));
 }

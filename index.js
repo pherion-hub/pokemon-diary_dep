@@ -7,9 +7,14 @@ let bodyId = document.querySelector("body").id;
 
 window.addEventListener("load", async () => {
   const pokemonList = await fetchPokemons();
+  const favoriteList = getCartItems();
+
+  pokemonList.forEach((pokemon) => {
+    pokemon.isFavorite = favoriteList.some((p) => p.id === pokemon.id);
+  });
 
   if (bodyId === "journal") {
-    renderPokemons(getCartItems());
+    renderPokemons(favoriteList);
   } else {
     renderPokemons(pokemonList);
   }

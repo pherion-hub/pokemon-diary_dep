@@ -1,8 +1,7 @@
 // fetch 150 pokemons and return data
 
-const pokemonList = [];
-
 export async function fetchPokemons() {
+  const pokemonList = [];
   try {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
     const data = await response.json();

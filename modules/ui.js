@@ -1,7 +1,10 @@
 // Import function to add Pokémon to the cart
 
 import { getCartItems, deleteFromCart, addToCart } from "./storage.js";
+import iconRed from "../Icons/299063_heart_icon-red.svg";
+import iconWhite from "../Icons/299063_heart_icon-white.svg";
 
+console.log(iconRed);
 // Select DOM elements
 const pokemonContainer = document.querySelector("#pokemon-container");
 const searchInput = document.getElementById("default-search");
@@ -35,8 +38,8 @@ export function renderPokemons(list) {
 
     // isFavorite ? - icon red, if not - icon white
     const heartIconSrc = isFavorite
-      ? "Icons/299063_heart_icon-red.svg"
-      : "Icons/299063_heart_icon-white.svg";
+      ? iconRed
+      : iconWhite;
 
     pokemonCard.innerHTML = `
       <h3 class="text-2xl font-bold mb-4">${pokemon.name}</h3>

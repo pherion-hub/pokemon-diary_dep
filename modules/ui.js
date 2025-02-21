@@ -6,6 +6,7 @@ import { getCartItems, deleteFromCart, addToCart } from "./storage.js";
 const pokemonContainer = document.querySelector("#pokemon-container");
 const searchInput = document.getElementById("default-search");
 const searchForm = document.getElementById("search-form");
+const bodyId = document.querySelector("body").id;
 
 // Function to render Pokémon cards
 export function renderPokemons(list) {
@@ -84,11 +85,18 @@ export function setupEventListeners(pokemonList) {
     const searchValue = searchInput.value.toLowerCase(); // Convert input to lowercase
 
     // Filter Pokémon based on name or type
-    const foundPokemons = pokemonList.filter(
-      (p) =>
-        p.name.toLowerCase().includes(searchValue) ||
-        p.type.some((t) => t.includes(searchValue))
-    );
+    const foundPokemons =
+      bodyId === "journal"
+        ? getCartItems().filter(
+            (p) =>
+              p.name.toLowerCase().includes(searchValue) ||
+              p.type.some((t) => t.includes(searchValue))
+          )
+        : pokemonList.filter(
+            (p) =>
+              p.name.toLowerCase().includes(searchValue) ||
+              p.type.some((t) => t.includes(searchValue))
+          );
 
     if (foundPokemons.length > 0) {
       renderPokemons(foundPokemons); // Render the found Pokémon

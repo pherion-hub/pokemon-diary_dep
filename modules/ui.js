@@ -16,6 +16,7 @@ export function renderPokemons(list) {
   const cart = getCartItems();
 
   list.forEach((pokemon) => {
+    pokemon.isFavorite = cart.some((p) => p.id === pokemon.id);
     // Create a card for each Pokémon
     const pokemonCard = document.createElement("div");
     pokemonCard.classList.add(
@@ -64,16 +65,16 @@ export function setupEventListeners(pokemonList) {
       const pokemonId = event.target.getAttribute("data-id");
       const pokemon = pokemonList.find((p) => p.id == pokemonId);
 
-      // pokemon.isFavorite = !pokemon.isFavorite;
-      // pokemon.isFavorite ? addToCart(pokemon) : deletoFromCart(pokemon);
-
       if (pokemon.isFavorite === true) {
+        pokemon.isFavorite = false;
         deleteFromCart(pokemon.id);
-        pokemon.isFavorite = !pokemon.isFavorite;
       } else {
+        pokemon.isFavorite = true;
         addToCart(pokemon);
-        console.log(`${pokemon.name} was added to the cart!`);
-        pokemon.isFavorite = !pokemon.isFavorite;
+      }
+
+      if (document.body.id === "journal") {
+        renderPokemons(getCartItems());
       }
     }
   });

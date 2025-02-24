@@ -34,7 +34,8 @@ export function renderPokemons(list) {
       "items-center",
       "p-4",
       "shadow",
-      "relative"
+      "relative",
+      "card"
     );
 
     // Check if pokemon in  Local Storage
@@ -44,11 +45,6 @@ export function renderPokemons(list) {
     const heartIconSrc = isFavorite ? iconRed : iconWhite;
 
     const comments = getComments(pokemon.id);
-    comments.forEach((comment) => {
-      const commentNode = document.createElement("p");
-      commentNode.textContent = comment;
-      pokemonCard.appendChild(commentNode);
-    });
 
     pokemonCard.innerHTML = `
       <h3 class="text-2xl font-bold mb-4">${pokemon.name}</h3>
@@ -61,14 +57,14 @@ export function renderPokemons(list) {
       
       <input data-id="${
         pokemon.id
-      }" id="comment-input" type="text" class="w-full mt-4 border p-2" placeholder="Add a comment" value="${
-      comments || ""
-    }">
+      }" id="comment-input" type="text" class="w-full mt-4 border p-2" placeholder="Add a comment" value="">
       <button data-id="${
         pokemon.id
       }" id="add-comment" class="bg-blue-500 text-white px-4 py-2 mt-4">Add Comment</button>
 
-   <p>${pokemon.comment}</p>
+      <div>${comments.map((comment) => {
+        return `<p>${comment}</p>`;
+      })}</div>
 
     `;
     pokemonContainer.appendChild(pokemonCard);
@@ -81,18 +77,26 @@ export function setupEventListeners(pokemonList) {
   addCommentButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
       if (event.target.matches("button[data-id]")) {
+        const pokemonCard = event.target.closest(".card");
         const pokemonId = event.target.getAttribute("data-id");
-
+        const newComment = document.createElement("p");
         const pokemon = pokemonList.find((p) => p.id == pokemonId);
-
         const targetInput = document.querySelector(
           `input[data-id="${pokemonId}"]`
         );
 
         if (targetInput.value) {
-          pokemon.comment = targetInput.value;
           alert("Comment added!");
-          addComment(pokemonId, pokemon.comment);
+
+          for (i = 0; i < pokemonList.length; i++) {
+            pokemonList[i]["comment"] = targetInput.value;
+          }
+
+          console.log(pokemon);
+
+          addComment(pokemonId, targetInput.value);
+          newComment.textContent = targetInput.value;
+          pokemonCard.appendChild(newComment);
           targetInput.value = "";
         }
       }

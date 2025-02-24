@@ -46,11 +46,13 @@ export function renderPokemons(list) {
     alt="heart">
       <img class="h-[50px] mb-4" src="${pokemon.image}" alt="${pokemon.name}">
       <span>Type: ${pokemon.type.join(", ")}</span>
+      ${bodyId === "journal" ? `<p class="mt-4">${pokemon.comment}</p>` : ""}
       <input data-id="${
         pokemon.id
       }" id="comment-input" type="text" class="w-full mt-4 border p-2" placeholder="Add a comment" value="${
         pokemon.comment || ""
       }">
+      
       <button data-id="${
         pokemon.id
       }" id="add-comment" class="bg-blue-500 text-white px-4 py-2 mt-4">Add Comment</button>
@@ -74,11 +76,17 @@ export function setupEventListeners(pokemonList) {
      
       const targetInput = document.querySelector(`input[data-id="${pokemonId}"]`);
       console.log(targetInput.value, pokemonId);
+      if (targetInput.value) {
+        pokemon.comment = targetInput.value;
+        targetInput.value = "";
+        alert("Comment added!");
+        console.log(pokemon.comment);
       }
       
       
       
-    })
+      }
+    });
   });
  
 

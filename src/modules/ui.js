@@ -1,8 +1,8 @@
 // Import function to add Pokémon to the cart
 
 import { getCartItems, deleteFromCart, addToCart } from "./storage.js";
-import iconRed from "../../Icons/299063_heart_icon-red.svg";
-import iconWhite from "../../Icons/299063_heart_icon-white.svg";
+import iconRed from "../Icons/299063_heart_icon-red.svg";
+import iconWhite from "../Icons/299063_heart_icon-white.svg";
 
 // Select DOM elements
 const pokemonContainer = document.querySelector("#pokemon-container");

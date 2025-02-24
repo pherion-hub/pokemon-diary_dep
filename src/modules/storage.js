@@ -1,4 +1,4 @@
-// addCart(pokemon)
+// get favorite list from localStorage
 export function getCartItems() {
   return JSON.parse(localStorage.getItem("cart")) || [];
 }
@@ -23,4 +23,20 @@ export function deleteFromCart(pokemonId) {
   }
   // update cart in localStorage
   localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// get comments from localStorage
+export function getComments(pokemonId) {
+  const comments = JSON.parse(localStorage.getItem("comments")) || {};
+  return comments[pokemonId] || [];
+}
+
+// add comment to localStorage
+export function addComment(pokemonId, comment) {
+  const comments = JSON.parse(localStorage.getItem("comments")) || {};
+  if (!comments[pokemonId]) {
+    comments[pokemonId] = [];
+  }
+  comments[pokemonId].push(comment);
+  localStorage.setItem("comments", JSON.stringify(comments));
 }

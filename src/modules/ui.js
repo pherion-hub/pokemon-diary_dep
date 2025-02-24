@@ -1,10 +1,9 @@
 // Import function to add Pokémon to the cart
 
 import { getCartItems, deleteFromCart, addToCart } from "./storage.js";
-import iconRed from "../Icons/299063_heart_icon-red.svg";
-import iconWhite from "../Icons/299063_heart_icon-white.svg";
+import iconRed from "../../Icons/299063_heart_icon-red.svg";
+import iconWhite from "../../Icons/299063_heart_icon-white.svg";
 
-console.log(iconRed);
 // Select DOM elements
 const pokemonContainer = document.querySelector("#pokemon-container");
 const searchInput = document.getElementById("default-search");
@@ -17,7 +16,6 @@ export function renderPokemons(list) {
 
   // Get all Favorites from Local Storage
   const cart = getCartItems();
-
   list.forEach((pokemon) => {
     pokemon.isFavorite = cart.some((p) => p.id === pokemon.id);
     // Create a card for each Pokémon
@@ -37,9 +35,7 @@ export function renderPokemons(list) {
     const isFavorite = cart.some((p) => p.name === pokemon.name);
 
     // isFavorite ? - icon red, if not - icon white
-    const heartIconSrc = isFavorite
-      ? iconRed
-      : iconWhite;
+    const heartIconSrc = isFavorite ? iconRed : iconWhite;
 
     pokemonCard.innerHTML = `
       <h3 class="text-2xl font-bold mb-4">${pokemon.name}</h3>
@@ -58,16 +54,11 @@ export function renderPokemons(list) {
 export function setupEventListeners(pokemonList) {
   // Add a single click event listener on the container (event delegation)
   pokemonContainer.addEventListener("click", (event) => {
-    // If the user clicks on the heart icon, toggle the favorite status
-    if (event.target.classList.contains("heart-icon")) {
-      toggleFavorite(event.target);
-    }
-
     // If the user clicks on a Pokémon's add-to-cart icon
     if (event.target.matches("img[data-id]")) {
       const pokemonId = event.target.getAttribute("data-id");
       const pokemon = pokemonList.find((p) => p.id == pokemonId);
-
+      toggleFavorite(event.target);
       if (pokemon.isFavorite === true) {
         pokemon.isFavorite = false;
         deleteFromCart(pokemon.id);
@@ -112,8 +103,5 @@ export function setupEventListeners(pokemonList) {
 
 // Function to toggle favorite (heart) icon
 function toggleFavorite(icon) {
-  const isFavorite = icon.src.includes("299063_heart_icon-red.svg");
-  icon.src = isFavorite
-    ? "Icons/299063_heart_icon-white.svg"
-    : "Icons/299063_heart_icon-red.svg";
+  icon.src = icon.src.includes(iconRed) ? iconWhite : iconRed;
 }

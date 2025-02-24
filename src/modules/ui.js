@@ -88,11 +88,7 @@ export function setupEventListeners(pokemonList) {
         if (targetInput.value) {
           alert("Comment added!");
 
-          for (i = 0; i < pokemonList.length; i++) {
-            pokemonList[i]["comment"] = targetInput.value;
-          }
-
-          console.log(pokemon);
+          pokemon.comment = targetInput.value;
 
           addComment(pokemonId, targetInput.value);
           newComment.textContent = targetInput.value;

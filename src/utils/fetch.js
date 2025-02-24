@@ -1,5 +1,7 @@
 // fetch 150 pokemons and return data
 
+import { comment } from "postcss";
+
 export async function fetchPokemons() {
   const pokemonList = [];
   try {
@@ -16,6 +18,7 @@ export async function fetchPokemons() {
         type: details.types.map((t) => t.type.name),
         id: details.id,
         isFavorite: false,
+        comment: "",
       });
     });
 

@@ -10,6 +10,7 @@ const searchInput = document.getElementById("default-search");
 const searchForm = document.getElementById("search-form");
 const bodyId = document.querySelector("body").id;
 
+
 // Function to render Pokémon cards
 export function renderPokemons(list) {
   pokemonContainer.innerHTML = ""; // Clear the container before rendering
@@ -45,6 +46,14 @@ export function renderPokemons(list) {
     alt="heart">
       <img class="h-[50px] mb-4" src="${pokemon.image}" alt="${pokemon.name}">
       <span>Type: ${pokemon.type.join(", ")}</span>
+      <input data-id="${
+        pokemon.id
+      }" id="comment-input" type="text" class="w-full mt-4 border p-2" placeholder="Add a comment" value="${
+        pokemon.comment || ""
+      }">
+      <button data-id="${
+        pokemon.id
+      }" id="add-comment" class="bg-blue-500 text-white px-4 py-2 mt-4">Add Comment</button>
     `;
     pokemonContainer.appendChild(pokemonCard);
   });
@@ -52,6 +61,29 @@ export function renderPokemons(list) {
 
 // Function to add event listeners
 export function setupEventListeners(pokemonList) {
+  
+  const addCommentButtons = document.querySelectorAll("#add-comment");
+  addCommentButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      if (event.target.matches("button[data-id]")) {
+        const pokemonId = event.target.getAttribute("data-id");
+        
+        const pokemon = pokemonList.find((p) => p.id == pokemonId);
+      
+      
+     
+      const targetInput = document.querySelector(`input[data-id="${pokemonId}"]`);
+      console.log(targetInput.value, pokemonId);
+      }
+      
+      
+      
+    })
+  });
+ 
+
+// commentInput.addEventListener("input", (e) => {
+//   console.log(e.target.value);});
   // Add a single click event listener on the container (event delegation)
   pokemonContainer.addEventListener("click", (event) => {
     // If the user clicks on a Pokémon's add-to-cart icon

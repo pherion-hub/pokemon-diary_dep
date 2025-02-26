@@ -1,5 +1,4 @@
-// Import function to add Pokémon to the cart
-
+// Imports
 import {
   getCartItems,
   deleteFromCart,
@@ -43,9 +42,9 @@ export function renderPokemons(list) {
 
     // isFavorite ? - icon red, if not - icon white
     const heartIconSrc = isFavorite ? iconRed : iconWhite;
-
+    // Get comments from Local Storage
     const comments = getComments(pokemon.id);
-
+    // Add Pokémon data to the card
     pokemonCard.innerHTML = `
       <h3 class="text-2xl font-bold mb-4">${pokemon.name}</h3>
       <img data-id="${
@@ -62,10 +61,7 @@ export function renderPokemons(list) {
         pokemon.id
       }" id="add-comment" class="bg-blue-500 text-white px-4 py-2 mt-4">Add Comment</button>
 
-      <div>${comments.map((comment) => {
-        return `<p>${comment}</p>`;
-      })}</div>
-
+    <div>${comments.map((comment) => `<p>${comment.trim()}</p>`).join("")}</div>
     `;
     pokemonContainer.appendChild(pokemonCard);
   });
@@ -73,6 +69,7 @@ export function renderPokemons(list) {
 
 // Function to add event listeners
 export function setupEventListeners(pokemonList) {
+  // Add event listeners for adding comments
   const addCommentButtons = document.querySelectorAll("#add-comment");
   addCommentButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -90,7 +87,7 @@ export function setupEventListeners(pokemonList) {
 
           pokemon.comment = targetInput.value;
 
-          addComment(pokemonId, targetInput.value);
+          addComment(pokemonId, targetInput.value.trim());
           newComment.textContent = targetInput.value;
           pokemonCard.appendChild(newComment);
           targetInput.value = "";
@@ -113,7 +110,7 @@ export function setupEventListeners(pokemonList) {
         pokemon.isFavorite = true;
         addToCart(pokemon);
       }
-
+      // If the user is on the journal page, render the Pokémon cards
       if (document.body.id === "journal") {
         renderPokemons(getCartItems());
       }

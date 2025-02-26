@@ -53,15 +53,20 @@ export function renderPokemons(list) {
     alt="heart">
       <img class="h-[50px] mb-4" src="${pokemon.image}" alt="${pokemon.name}">
       <span>Type: ${pokemon.type.join(", ")}</span>
-      
-      <input data-id="${
-        pokemon.id
-      }" id="comment-input" type="text" class="w-full mt-4 border p-2" placeholder="Add a comment" value="">
+      ${
+        bodyId === "journal" &&
+        `  <input data-id="${
+          pokemon.id
+        }" id="comment-input" type="text" class="w-full mt-4 border p-2" placeholder="Add a comment" value="">
       <button data-id="${
         pokemon.id
       }" id="add-comment" class="bg-blue-500 text-white px-4 py-2 mt-4">Add Comment</button>
 
-    <div>${comments.map((comment) => `<p>${comment.trim()}</p>`).join("")}</div>
+    <div>${comments
+      .map((comment) => `<p>${comment.trim()}</p>`)
+      .join("")}</div>`
+      }
+    
     `;
     pokemonContainer.appendChild(pokemonCard);
   });

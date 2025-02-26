@@ -20,6 +20,7 @@
   "description": "",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "buffer": "^6.0.3",
     "parcel": "^2.13.3",
     "postcss": "^8.5.3",
     "svgo": "^3.3.2",

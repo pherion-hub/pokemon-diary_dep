@@ -16,6 +16,7 @@ export async function fetchPokemons() {
         type: details.types.map((t) => t.type.name),
         id: details.id,
         isFavorite: false,
+        comment: "",
       });
     });
 
